@@ -1,4 +1,12 @@
 package ifsc.model;
 
-public class AtividadeRealizada {
-}
+import java.time.LocalDate;
+public record AtividadeRealizada(
+        Integer id,
+        Aluno aluno,
+        AtividadeComplementar atividadeComplementar,
+        int horasApresentadas,
+        int horasValidadas,
+        String documento,
+        LocalDate dataRealizacao
+) {}

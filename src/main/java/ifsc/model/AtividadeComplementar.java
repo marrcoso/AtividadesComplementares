@@ -1,4 +1,8 @@
 package ifsc.model;
 
-public class AtividadeComplementar {
-}
+public record AtividadeComplementar(
+        Integer id,
+        String descricao,
+        Integer limiteMaximoHoras,
+        Modalidade modalidade)
+{}

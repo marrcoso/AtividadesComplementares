@@ -1,4 +1,4 @@
 package ifsc.model;
 
-public class Aluno {
-}
+public record Aluno(Integer id, String nome) {}
+
