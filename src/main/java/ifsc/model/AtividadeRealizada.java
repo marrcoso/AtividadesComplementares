@@ -2,15 +2,15 @@ package ifsc.model;
 
 public class AtividadeRealizada {
     private int id;
-    private int requerimentoId;
-    private int atividadeId;
+    private Requerimento requerimento;
+    private AtividadeComplementar atividadeComplementar;
     private int horasApresentadas;
     private String descricao;
 
-    public AtividadeRealizada(int id, int requerimentoId, int atividadeId, int horasApresentadas, String descricao) {
+    public AtividadeRealizada(int id, Requerimento requerimento, AtividadeComplementar atividadeComplementar, int horasApresentadas, String descricao) {
         this.id = id;
-        this.requerimentoId = requerimentoId;
-        this.atividadeId = atividadeId;
+        this.requerimento = requerimento;
+        this.atividadeComplementar = atividadeComplementar;
         this.horasApresentadas = horasApresentadas;
         this.descricao = descricao;
     }

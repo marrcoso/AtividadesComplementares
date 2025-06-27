@@ -1,14 +1,34 @@
 package ifsc.model;
 
-public class AtividadeComplementar{
-        private int id;
-        private String descricao;
-        private int modalidadeId;
+import ifsc.strategy.Validacao;
 
-    public AtividadeComplementar(int id, String descricao, int modalidadeId) {
-        this.id = id;
+public class AtividadeComplementar{
+    private String descricao;
+    private Validacao estrategiaValidacao; // Padrão Strategy para validação!
+    private String documentacaoExigida;
+
+
+    public AtividadeComplementar(String descricao, Validacao estrategiaValidacao, String documentacaoExigida) {
         this.descricao = descricao;
-        this.modalidadeId = modalidadeId;
+        this.estrategiaValidacao = estrategiaValidacao;
+        this.documentacaoExigida = documentacaoExigida;
     }
+
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+
+    public Validacao getEstrategiaValidacao() {
+        return estrategiaValidacao;
+    }
+
+
+    public String getDocumentacaoExigida() {
+        return documentacaoExigida;
+    }
+
+    
 
 }
