@@ -35,18 +35,18 @@ public String gerar(Requerimento requerimento) {
     // Coloque estes métodos privados dentro da mesma classe Parecer
 
 private void construirCabecalho(StringBuilder parecer, Requerimento requerimento) {
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     parecer.append("=== PARECER DE VALIDAÇÃO ===\n");
     parecer.append("Matrícula: ").append(requerimento.getMatricula()).append("\n");
     parecer.append("Data emissão: ").append(dtf.format(LocalDate.now())).append("\n");
-    parecer.append("Total de Horas Exigidas no Curso: ").append(requerimento.getTOTAL_HORAS_CURSO()).append("h\n");
+    parecer.append("Total de Horas Exigidas no Curso: ").append(requerimento.getTotalHorasCurso()).append("h\n");
 }
 
 private Map<Modalidade, List<AtividadeRequerida>> agruparAtividadesPorModalidade(Requerimento requerimento) {
     Map<Modalidade, List<AtividadeRequerida>> atividadesPorModalidade = new HashMap<>();
-    for (AtividadeRequerida ar : requerimento.getAtividadesSubmetidas()) {
-        Modalidade modalidade = ar.getAtividadeComplementar().getModalidade();
-        atividadesPorModalidade.computeIfAbsent(modalidade, k -> new ArrayList<>()).add(ar);
+    for (AtividadeRequerida atividadeRequerida : requerimento.getAtividadesSubmetidas()) {
+        Modalidade modalidade = atividadeRequerida.getAtividadeComplementar().getModalidade();
+        atividadesPorModalidade.computeIfAbsent(modalidade, k -> new ArrayList<>()).add(atividadeRequerida);
     }
     return atividadesPorModalidade;
 }
@@ -59,14 +59,14 @@ private int processarModalidades(StringBuilder parecer, Map<Modalidade, List<Ati
         Modalidade modalidade = entry.getKey();
         List<AtividadeRequerida> atividadesDaModalidade = entry.getValue();
         
-        int limiteHorasModalidade = (int) (requerimento.getTOTAL_HORAS_CURSO() * modalidade.getPercentualLimite());
+        int limiteHorasModalidade = (int) (requerimento.getTotalHorasCurso() * modalidade.getPercentualLimite());
 
         parecer.append(String.format("\n--- MODALIDADE: %s (Limite da modalidade: %dh) ---\n", modalidade.getNome(), limiteHorasModalidade));
 
         int subtotalValidadoModalidade = 0;
-        for (AtividadeRequerida ar : atividadesDaModalidade) {
-            formatarAtividadeIndividual(parecer, ar, contadorAtividadeGlobal++);
-            subtotalValidadoModalidade += ar.getHorasValidadas();
+        for (AtividadeRequerida atividadeRequerida : atividadesDaModalidade) {
+            formatarAtividadeIndividual(parecer, atividadeRequerida, contadorAtividadeGlobal++);
+            subtotalValidadoModalidade += atividadeRequerida.getHorasValidadas();
         }
 
         int horasFinaisModalidade = Math.min(subtotalValidadoModalidade, limiteHorasModalidade);
@@ -77,13 +77,13 @@ private int processarModalidades(StringBuilder parecer, Map<Modalidade, List<Ati
     return totalHorasValidadasFinal;
 }
 
-private void formatarAtividadeIndividual(StringBuilder parecer, AtividadeRequerida ar, int contador) {
+private void formatarAtividadeIndividual(StringBuilder parecer, AtividadeRequerida atividadeRequerida, int contador) {
     parecer.append(String.format("Atividade %d:\n", contador));
-    parecer.append(String.format("  Descrição:        %s\n", ar.getAtividadeComplementar().getDescricao()));
-    String regraDesc = ar.getAtividadeComplementar().getEstrategiaValidacao().getDescricaoRegra();
-    parecer.append(String.format("  Declarado:        %d (%s)\n", ar.getHorasDeclaradas(), regraDesc));
-    parecer.append(String.format("  Horas validadas:  %dh\n", ar.getHorasValidadas()));
-    parecer.append(String.format("  Observação:       %s\n\n", ar.getObservacao()));
+    parecer.append(String.format("  Descrição:        %s\n", atividadeRequerida.getAtividadeComplementar().getDescricao()));
+    String regraDesc = atividadeRequerida.getAtividadeComplementar().getEstrategiaValidacao().getDescricaoRegra();
+    parecer.append(String.format("  Declarado:        %d (%s)\n", atividadeRequerida.getHorasDeclaradas(), regraDesc));
+    parecer.append(String.format("  Horas validadas:  %dh\n", atividadeRequerida.getHorasValidadas()));
+    parecer.append(String.format("  Observação:       %s\n\n", atividadeRequerida.getObservacao()));
 }
 
 private void formatarResumoModalidade(StringBuilder parecer, int subtotal, int limite, int valorFinal) {

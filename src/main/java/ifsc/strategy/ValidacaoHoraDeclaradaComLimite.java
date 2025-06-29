@@ -23,6 +23,7 @@ public class ValidacaoHoraDeclaradaComLimite implements Validacao {
         return new ResultadoValidacao(horasValidadas, observacao);
     }
 
+    @Override
     public String getDescricaoRegra() {
         return String.format("Horas a declarar (limite de %dh por atividade)", this.limiteHoras);
     }

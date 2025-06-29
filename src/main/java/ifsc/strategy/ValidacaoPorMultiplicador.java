@@ -25,7 +25,8 @@ public class ValidacaoPorMultiplicador implements Validacao {
         return new ResultadoValidacao(horasValidadas, observacao);
     }
 
+    @Override
     public String getDescricaoRegra() {
-        return String.format("Número de %ss (cada %s vale %dh)", this.nomeDaUnidade, this.nomeDaUnidade, this.horasPorUnidade);
+        return String.format("Número de %ses (cada %s vale %dh)", this.nomeDaUnidade, this.nomeDaUnidade, this.horasPorUnidade);
     }
 } 

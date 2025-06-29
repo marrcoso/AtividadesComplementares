@@ -23,6 +23,7 @@ public class ValidacaoHoraFixa implements Validacao {
         return new ResultadoValidacao(horasValidadas, observacao);
     }
 
+    @Override
     public String getDescricaoRegra() {
         return String.format("Quantidade de participações (cada uma vale %dh)", this.horasFixasPorUnidade);
     }

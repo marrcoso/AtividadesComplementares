@@ -23,4 +23,8 @@ public class Requerimento {
     public void adicionarAtividade(AtividadeRequerida atividade) {
         atividadesSubmetidas.add(atividade);
     }
+
+    public int getTotalHorasCurso() {
+        return totalHorasCurso;
+    }
 }

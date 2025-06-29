@@ -23,6 +23,7 @@ public class ValidacaoPadrao implements Validacao {
         return new ResultadoValidacao(horasValidadas, observacao);
     }
 
+    @Override
     public String getDescricaoRegra() {
         return String.format("Quantidade de participações (valor padrão de %dh para cada)", this.horasPadrao);
     }

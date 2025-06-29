@@ -1,7 +1,7 @@
 package ifsc.model;
 
 public class AtividadeRequerida {
-    private AtividadeComplementar atividadeComplementar; // A atividade base
+    private AtividadeComplementar atividadeComplementar;
     private int horasDeclaradas;
     private int horasValidadas;
     private String observacao;

@@ -19,45 +19,64 @@ public class ModalidadeFactory {
                 return criarModalidadePesquisa();
             case 3:
                 return criarModalidadeExtensao();
+            case 4:
+                return criarModalidadeComplementacao();
             default:
                 return null;
         }
     }
 
     private static Modalidade criarModalidadeEnsino() {
+        Modalidade ensino = new Modalidade("Ensino", 0.40);
+        
         List<AtividadeComplementar> atividades = Arrays.asList(
             // Atividade com limite de horas
-            new AtividadeComplementar("Visita técnica", 
-            new ValidacaoHoraDeclaradaComLimite(8), 
-            "Declaração de participação"),
+            new AtividadeComplementar("Visita técnica", new ValidacaoHoraDeclaradaComLimite(8), "Declaração de participação", ensino),
             
             // Atividade com valor padrão
-            new AtividadeComplementar("Participação em palestra (sem horas no certificado)", 
-            new ValidacaoPadrao(4), 
-            "Certificado de participação")
+            new AtividadeComplementar("Participação em palestra (sem horas no certificado)", new ValidacaoPadrao(4), "Certificado de participação", ensino)
         );
-        return new Modalidade("Ensino", atividades, 0.40);
+
+        ensino.setAtividadesDisponiveis(atividades);
+        
+        return ensino;
     }
     
     private static Modalidade criarModalidadePesquisa() {
+        Modalidade pesquisa = new Modalidade("Pesquisa e Inovação", 0.40);
+        
         List<AtividadeComplementar> atividades = Arrays.asList(
-            // Atividade com valor fixo
-            new AtividadeComplementar("Publicação de artigo em periódico", 
-            new ValidacaoHoraFixa(15), 
-            "Cópia do artigo"),
-            new AtividadeComplementar("Apresentação de trabalho em evento", 
-            new ValidacaoHoraFixa(10), 
-            "Certificado de apresentação")
+            new AtividadeComplementar("Publicação de artigo em periódico", new ValidacaoHoraFixa(15), "Cópia do artigo", pesquisa),
+            new AtividadeComplementar("Apresentação de trabalho em evento", new ValidacaoHoraFixa(10), "Certificado de apresentação", pesquisa)
         );
-        return new Modalidade("Pesquisa e Inovação", atividades, 0.40);
+
+        pesquisa.setAtividadesDisponiveis(atividades);
+
+        return pesquisa;
     }
     
     private static Modalidade criarModalidadeExtensao() {
+        Modalidade extensao = new Modalidade("Extensão", 0.40);
+        
         List<AtividadeComplementar> atividades = Arrays.asList(
-            new AtividadeComplementar("Estágio não obrigatório na área", 
-            new ValidacaoPorMultiplicador(25, "mês"), 
-            "Contrato de estágio")
+            new AtividadeComplementar("Estágio não obrigatório na área", new ValidacaoPorMultiplicador(25, "mês"), "Contrato de estágio", extensao)
         );
-        return new Modalidade("Extensão", atividades, 0.40);
+        
+        extensao.setAtividadesDisponiveis(atividades);
+        
+        return extensao;
+    }
+    
+    private static Modalidade criarModalidadeComplementacao() {
+        Modalidade complementacao = new Modalidade("Complementação", 0.20);
+        
+        List<AtividadeComplementar> atividades = Arrays.asList(
+            new AtividadeComplementar("Participação em evento cultural", new ValidacaoHoraFixa(5), "Certificado ou ingresso", complementacao),
+            new AtividadeComplementar("Curso de língua estrangeira", new ValidacaoHoraDeclaradaComLimite(40), "Certificado de conclusão", complementacao),
+            new AtividadeComplementar("Trabalho voluntário", new ValidacaoHoraDeclaradaComLimite(30), "Declaração da instituição", complementacao)        );
+        
+        complementacao.setAtividadesDisponiveis(atividades);
+        
+        return complementacao;
     }
 }

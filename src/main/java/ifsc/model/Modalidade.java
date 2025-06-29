@@ -5,11 +5,10 @@ import java.util.List;
 public class Modalidade {
     private String nome;
     private List<AtividadeComplementar> atividadesDisponiveis;
-    private double percentualLimite; // Ex: 0.40 para 40%
+    private double percentualLimite;
 
-    public Modalidade(String nome, List<AtividadeComplementar> atividadesDisponiveis, double percentualLimite) {
+    public Modalidade(String nome, double percentualLimite) {
         this.nome = nome;
-        this.atividadesDisponiveis = atividadesDisponiveis;
         this.percentualLimite = percentualLimite;
     }
 
@@ -19,6 +18,10 @@ public class Modalidade {
 
     public List<AtividadeComplementar> getAtividadesDisponiveis() {
         return atividadesDisponiveis;
+    }
+
+    public void setAtividadesDisponiveis(List<AtividadeComplementar> atividadesDisponiveis) {
+        this.atividadesDisponiveis = atividadesDisponiveis;
     }
 
     public double getPercentualLimite() {
