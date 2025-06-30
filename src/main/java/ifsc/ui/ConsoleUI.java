@@ -29,10 +29,21 @@ public class ConsoleUI {
         System.out.println("======================================================");
         System.out.println("  SISTEMA DE AVALIAÇÃO DE ATIVIDADES COMPLEMENTARES");
         System.out.println("======================================================");
-        System.out.print("Informe a matrícula do aluno: ");
-        String matricula = scanner.nextLine();
+    
+        String matricula;
+    
+        do {
+            System.out.print("Informe a matrícula do aluno: ");
+            matricula = scanner.nextLine();
+    
+            if (matricula.trim().isEmpty()) {
+                System.out.println("ERRO: A matrícula não pode estar em branco. Por favor, tente novamente.");
+            }
+    
+        } while (matricula.trim().isEmpty());
+    
         this.requerimento = new Requerimento(matricula);
-
+    
         loopPrincipal();
         fecharRecursos();
     }
